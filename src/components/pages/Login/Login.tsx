@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import { loginService } from '../../../service/authService';
 import { storeToken } from '../../../helpers/AuthHelper';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -27,9 +27,9 @@ const LoginPage: React.FC = () => {
       // Simulate a service call
       const loginResponse = await loginService(username, password);
 
-      console.log(loginResponse)
       // Handle successful login (for demonstration purposes, we'll just log a success message)
       console.log('Login successful');
+      console.log(loginResponse?.data)
       storeToken(loginResponse?.data?.token)
       navigate("/")
     } catch (error) {
@@ -95,6 +95,10 @@ const LoginPage: React.FC = () => {
           >
             {loading ? 'Logging in...' : 'Login'}
           </Button>
+          {/* add signup label with link */}
+          <Typography component="h6" variant="h6" style={{textAlign:"center"}}>
+            Don't have an account? <a href="/signup">Sign Up</a>
+          </Typography>
         </Box>
       </Box>
     </Container>

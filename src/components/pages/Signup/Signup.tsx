@@ -1,5 +1,8 @@
 import React, { useState, FormEvent } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { signupService } from '../../../service/authService';
+import { storeToken } from '../../../helpers/AuthHelper';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage: React.FC = () => {
   // State variables for form fields and loading state
@@ -8,6 +11,10 @@ const SignUpPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+
+  //Error message state
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -20,36 +27,27 @@ const SignUpPage: React.FC = () => {
     const requestBody = {
       fullName,
       email,
-      username,
-      password,
+      Username: username,
+      Password: password,
     };
 
     try {
+      //Setting off the error message
+      setErrorMessage('');
       // Simulate a service call
-      await fakeServiceCall(requestBody);
+      const signupResponse = await signupService(requestBody);
 
-      // Handle successful signup (for demonstration purposes, we'll just log a success message)
+      storeToken(signupResponse?.data?.token)
+      navigate("/")
       console.log('Sign-up successful');
     } catch (error) {
-      // Handle sign-up failure
+      // Handle signup failure
+      setErrorMessage('Sign-up Failed');
       console.error('Sign-up failed', error);
     } finally {
       // Reset loading state regardless of success or failure
       setLoading(false);
     }
-  };
-
-  // Simulated service call function
-  const fakeServiceCall = (requestBody: { fullName: string; email: string; username: string; password: string }): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (requestBody.username && requestBody.password) {
-          resolve('Success');
-        } else {
-          reject('Invalid input');
-        }
-      }, 2000); // Simulate a 2-second network delay
-    });
   };
 
   return (
@@ -117,6 +115,13 @@ const SignUpPage: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {// Display error message if there is one
+            errorMessage && (
+              <Typography color="error">
+                {errorMessage}
+              </Typography>
+            )
+          }
           <Button
             type="submit"
             fullWidth
@@ -127,6 +132,10 @@ const SignUpPage: React.FC = () => {
           >
             {loading ? 'Signing up...' : 'Sign Up'}
           </Button>
+          {/* add signup label with link */}
+          <Typography component="h6" variant="h6" style={{ textAlign: "center" }}>
+            Already have an account? <a href="/login">Log in</a>
+          </Typography>
         </Box>
       </Box>
     </Container>
