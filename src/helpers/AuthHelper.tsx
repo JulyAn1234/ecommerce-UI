@@ -36,4 +36,4 @@ export const storeToken = (token:any)=>{
 export const getAuthHeader = ()=>{
     const token = localStorage.getItem("jwtToken")
     return {Authorization: `Bearer ${token}`}
-}
+} 
