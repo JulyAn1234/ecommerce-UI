@@ -26,7 +26,7 @@ const isTokenValidCheck = ()=>{
 
 export const removeToken = ()=>{
     localStorage.removeItem("jwtToken")
-}
+} 
 
 export const storeToken = (token:any)=>{
     console.log("storing token")
