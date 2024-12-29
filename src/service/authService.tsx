@@ -1,15 +1,15 @@
 import axios from "axios";
 
 interface User {
-    Username:String,
-    Password:String,
+    username:String,
+    password:String,
     email?:String,
     fullName?:String
     Name?:String
 }
 
 export const loginService = async (username:String, password:String)=>{
-    const requestBody:User = {Username:username, Password: password}
+    const requestBody:User = {username, password}
     return await axios.post('/ecommerce-auth/auth/login', requestBody, {headers: {
         'Content-Type': 'application/json', // Set default Content-Type for JSON
       },});
