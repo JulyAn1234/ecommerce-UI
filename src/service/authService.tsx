@@ -6,10 +6,6 @@ interface User {
     email?:String,
     fullName?:String
     Name?:String
-    Unidad?:number
-    Rol?:number
-    isActive?:boolean
-    Permissions?:Array<number>
 }
 
 export const loginService = async (username:String, password:String)=>{
@@ -21,7 +17,7 @@ export const loginService = async (username:String, password:String)=>{
 
 export const signupService = async (signupPayload:User)=>{
     //Admin user...
-    const requestBody:User = {...signupPayload, isActive:true, Rol:1, Unidad:1, Permissions:[1,2,3,4,5,6,7,8,9,10]}
+    const requestBody:User = signupPayload
     console.log(requestBody)
     return await axios.post('/ecommerce-auth/auth/signup', requestBody, {headers: {
         'Content-Type': 'application/json', // Set default Content-Type for JSON
