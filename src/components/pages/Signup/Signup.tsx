@@ -27,8 +27,8 @@ const SignUpPage: React.FC = () => {
     const requestBody = {
       fullName,
       email,
-      Username: username,
-      Password: password,
+      username: username,
+      password: password,
     };
 
     try {
