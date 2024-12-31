@@ -89,7 +89,7 @@ const LoginPage: React.FC = () => {
             type="submit"
             fullWidth
             variant="contained"
-            color="#ffffff"
+            color="#FF0000"
             sx={{ mt: 3, mb: 2 }}
             disabled={loading}
           >
