@@ -45,6 +45,7 @@
     Deploy:
       name: Deploy to EC2
       runs-on: ubuntu-latest
+      needs: Build
 
       steps:
         - uses: actions/checkout@v2
