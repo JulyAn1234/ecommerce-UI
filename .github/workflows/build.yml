@@ -23,9 +23,6 @@ jobs:
 
               # Now we have got the access of EC2 and we will start the deploy .
               cd deployment
-              sudo pwd
-              ls
-              sudo docker-compose down
               yes | sudo docker image prune
               sudo docker-compose stop ${SERVICE_NAME}
               sudo docker-compose rm -f ${SERVICE_NAME}
